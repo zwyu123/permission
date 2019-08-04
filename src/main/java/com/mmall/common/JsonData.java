@@ -3,6 +3,9 @@ package com.mmall.common;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Getter
 @Setter
 public class JsonData {
@@ -38,5 +41,13 @@ public class JsonData {
         JsonData jsonData = new JsonData(false);
         jsonData.msg = msg;
         return jsonData;
+    }
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        result.put("ret", ret);
+        result.put("msg", msg);
+        result.put("data", data);
+        return result;
     }
 }
