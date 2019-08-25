@@ -1,6 +1,7 @@
 package com.mmall.service;
 
 import com.google.common.base.Preconditions;
+import com.mmall.common.RequestHolder;
 import com.mmall.dao.SysDeptMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysDept;
@@ -29,7 +30,7 @@ public class SysDeptService {
         SysDept dept = SysDept.builder().name(param.getName()).parentId(param.getParentId())
                 .seq(param.getSeq()).remark(param.getRemark()).build();
         dept.setLevel(LeveUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
-        dept.setOperator("system"); //TODO
+        dept.setOperator(RequestHolder.getCurrentUser().getUsername());
         dept.setOperateIp("127.0.0.1"); //TODO
         dept.setOperateTime(new Date());
         sysDeptMapper.insertSelective(dept);
@@ -46,7 +47,7 @@ public class SysDeptService {
         SysDept after = SysDept.builder().id(param.getId()).name(param.getName()).parentId(param.getParentId())
                 .seq(param.getSeq()).remark(param.getRemark()).build();
         after.setLevel(LeveUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
-        after.setOperator("system"); //TODO
+        after.setOperator(RequestHolder.getCurrentUser().getUsername());
         after.setOperateIp("127.0.0.1"); //TODO
         after.setOperateTime(new Date());
 
