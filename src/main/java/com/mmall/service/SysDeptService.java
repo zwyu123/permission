@@ -7,6 +7,7 @@ import com.mmall.exception.ParamException;
 import com.mmall.model.SysDept;
 import com.mmall.param.DeptParam;
 import com.mmall.util.BeanValidator;
+import com.mmall.util.IpUtil;
 import com.mmall.util.LeveUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class SysDeptService {
                 .seq(param.getSeq()).remark(param.getRemark()).build();
         dept.setLevel(LeveUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
         dept.setOperator(RequestHolder.getCurrentUser().getUsername());
-        dept.setOperateIp("127.0.0.1"); //TODO
+        dept.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         dept.setOperateTime(new Date());
         sysDeptMapper.insertSelective(dept);
     }
@@ -48,7 +49,7 @@ public class SysDeptService {
                 .seq(param.getSeq()).remark(param.getRemark()).build();
         after.setLevel(LeveUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
         after.setOperator(RequestHolder.getCurrentUser().getUsername());
-        after.setOperateIp("127.0.0.1"); //TODO
+        after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperateTime(new Date());
 
         updateWithChild(before, after);
