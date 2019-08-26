@@ -2,7 +2,7 @@ package com.mmall.util;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class LeveUtil {
+public class LevelUtil {
 
     public final static String SEPARATOR = ".";
 

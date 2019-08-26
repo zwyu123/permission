@@ -6,7 +6,7 @@ import com.google.common.collect.Multimap;
 import com.mmall.dao.SysDeptMapper;
 import com.mmall.dto.DeptLevelDto;
 import com.mmall.model.SysDept;
-import com.mmall.util.LeveUtil;
+import com.mmall.util.LevelUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +42,7 @@ public class SysTreeService {
 
         for (DeptLevelDto dto : deptLevelList){
             levelDeptMap.put(dto.getLevel(), dto);
-            if (LeveUtil.ROOT.equals(dto.getLevel())){
+            if (LevelUtil.ROOT.equals(dto.getLevel())){
                 rootList.add(dto);
             }
         }
@@ -54,7 +54,7 @@ public class SysTreeService {
             }
         });
         //  递归生成树
-        transformDeptTree(rootList, LeveUtil.ROOT, levelDeptMap);
+        transformDeptTree(rootList, LevelUtil.ROOT, levelDeptMap);
         return rootList;
     }
 
@@ -66,7 +66,7 @@ public class SysTreeService {
             // 遍历该层的每个元素
             DeptLevelDto deptLevelDto = deptLevelList.get(i);
             // 处理当前层级的数据
-            String nextLevel = LeveUtil.calculateLevel(level, deptLevelDto.getId());
+            String nextLevel = LevelUtil.calculateLevel(level, deptLevelDto.getId());
             // 处理下一层
             List<DeptLevelDto> tempDeptList = (List<DeptLevelDto>)levelDeptMap.get(nextLevel);
             if (CollectionUtils.isNotEmpty(tempDeptList)){
