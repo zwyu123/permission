@@ -19,8 +19,6 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
-import static sun.util.logging.LoggingSupport.getLevel;
-
 @Service
 public class SysAclModuleService {
 
@@ -28,6 +26,8 @@ public class SysAclModuleService {
     private SysAclModuleMapper sysAclModuleMapper;
     @Resource
     private SysAclMapper sysAclMapper;
+    @Resource
+    private SysLogService sysLogService;
 
     public void save(AclModuleParam param) {
         BeanValidator.check(param);
