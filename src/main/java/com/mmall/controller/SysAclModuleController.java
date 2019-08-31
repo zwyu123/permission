@@ -5,6 +5,7 @@ import com.mmall.param.AclModuleParam;
 import com.mmall.service.SysAclModuleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +34,19 @@ public class SysAclModuleController {
     @ResponseBody
     public JsonData updateAclModule(AclModuleParam param){
         sysAclModuleService.update(param);
+        return JsonData.success();
+    }
+
+    @RequestMapping("/tree.json")
+    @ResponseBody
+    public JsonData tree() {
+        return JsonData.success(sysTreeService.aclModuleTree());
+    }
+
+    @RequestMapping("/delete.json")
+    @ResponseBody
+    public JsonData delete(@RequestParam("id") int id) {
+        sysAclModuleService.delete(id);
         return JsonData.success();
     }
 }
